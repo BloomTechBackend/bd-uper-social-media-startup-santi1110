@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class SocialMediaApp {
 
     private Account[] accounts;
@@ -9,6 +11,35 @@ public class SocialMediaApp {
      */
     public void loadDemoAccounts() {
         // TODO: Finish this method.
+
+
+        //Account account1 = new Account();
+        LoginInfo loginInfo1 = new LoginInfo("sam234","!dfgdfg");
+        Address address1= new Address("45 Main street","Amsterdam",StateEnum.Arkansas,"2343");
+        AccountDetails accountDetails1 = new AccountDetails("Samantha",loginInfo1,address1);
+        TimeStamp firstmessage1TimeStamp = new TimeStamp(MonthEnum.May, 14,12, 00);
+        Message firstMessage1 = new Message(firstmessage1TimeStamp, "I wwent to play something");
+        TimeStamp secondmessage1TimeStamp = new TimeStamp(MonthEnum.June, 1,12, 00);
+        Message secondMessage1 = new Message(secondmessage1TimeStamp, "I have a birthdy");
+        TimeStamp thirdmessage1TimeStamp = new TimeStamp(MonthEnum.June, 11,5, 00);
+        Message thirdMessage1 = new Message(thirdmessage1TimeStamp, "I wwnt to swim");
+        Message[] messages1 = {firstMessage1, secondMessage1, thirdMessage1};
+
+//        LoginInfo loginInfo2 = new LoginInfo("sam234","!dfgdfg");
+//        Address address2= new Address("4523 Main street","Amsterdam",StateEnum.Arkansas,"2343");
+//        AccountDetails accountDetails2 = new AccountDetails("Samantha",loginInfo2,address2);
+//        TimeStamp firstmessage2TimeStamp = new TimeStamp(MonthEnum.May, 14,12, 00);
+//        Message firstMessage2 = new Message(firstmessage2TimeStamp, "I wwent to play something");
+//        TimeStamp secondmessage2TimeStamp = new TimeStamp(MonthEnum.June, 1,12, 00);
+//        Message secondMessage2 = new Message(firstmessage2TimeStamp, "I have a birthdy");
+//        TimeStamp thirdtmessage2TimeStamp = new TimeStamp(MonthEnum.June, 11,5, 00);
+//        Message thirdMessage2 = new Message(firstmessage2TimeStamp, "I wwnt to swim");
+//        Message[] messages2 = {firstMessage2, secondMessage2, thirdMessage2};
+
+
+        Account account1 = new Account(accountDetails1,messages1);
+
+        accounts = new Account[]{account1,account1,account1};
     }
 
     /**
@@ -20,6 +51,10 @@ public class SocialMediaApp {
      */
     public void postMessage(Account account, TimeStamp time, String text) {
         // TODO: Finish this method.
+
+
+        Message message = new Message(time,text);
+        account.addMessage(message);
     }
 
     /**
@@ -29,6 +64,20 @@ public class SocialMediaApp {
     public void printUserNames() {
         System.out.println("Usernames:");
         // TODO: Finish this method.
+        for (Account account:accounts){
+            System.out.println(account.getDetails().getLoginInfo().getUsername());
+        }
+
+
+        String [] names = new String[accounts.length];
+        for (int i = 0; i < names.length; i++){
+            names[i] = accounts[i].getDetails().getLoginInfo().getUsername();
+        }
+      Arrays.sort(names);
+//        for (String name :names){
+//            System.out.println(name);
+//        }
+        System.out.println(Arrays.toString(names));
     }
 
     /**
@@ -41,6 +90,20 @@ public class SocialMediaApp {
      * ...
      */
     public void printStateCounts() {
+
+
+        int [] tallies = new int[50];
+        for (Account account:accounts){
+            StateEnum accountState = account.getDetails().getAddress().getState();
+            tallies[accountState.ordinal()]++;
+            StateEnum [] statesNames = StateEnum.values();
+
+        for (int i=0; i <tallies.length; i++){
+            if(tallies[i]>0){
+                System.out.println(statesNames[i] );
+            }
+        }
+        }
         System.out.println("Accounts per State:");
         // TODO: Finish this method.
     }
